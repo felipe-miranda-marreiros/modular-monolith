@@ -6,6 +6,7 @@ import { ChangeUsernameCommandHandler } from './Application/Commands/ChangeUsern
 import { UserCreatedDomainEventHandler } from './Application/Events/UserCreatedDomainEventHandler';
 import { UserChangedUsernameDomainEventHandler } from './Application/Events/UserChangedUsernameDomainEventHandler';
 import { UserSQLRepository } from './Infrastructure/UserSQLRepository';
+import { USER_REPOSITORY_TOKEN } from './Application/Abstrations/UserRepository';
 
 export const CommandHandlers = [
   CreateUserCommandHandler,
@@ -20,10 +21,13 @@ export const EventHandlers = [
 @Module({
   controllers: [UserController],
   providers: [
+    {
+      provide: USER_REPOSITORY_TOKEN,
+      useClass: UserSQLRepository,
+    },
     UserService,
     ...CommandHandlers,
     ...EventHandlers,
-    UserSQLRepository,
   ],
 })
 export class UsersModule {}

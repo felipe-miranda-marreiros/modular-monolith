@@ -6,6 +6,6 @@ export class UserCreatedDomainEventHandler
   implements IEventHandler<UserCreatedDomainEvent>
 {
   handle(event: UserCreatedDomainEvent) {
-    console.log(event);
+    console.log(`User created: ${event.userId}`);
   }
 }

@@ -9,7 +9,6 @@ interface UserModel {
 export class User extends AggregateRoot<UserModel> {
   private constructor(props: UserModel, id?: string) {
     super(props, id);
-    this.autoCommit = true;
   }
 
   static create(props: UserModel, id?: string): User {

@@ -1,15 +1,20 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { CreateUserCommand } from './CreateUserCommand';
 import { User } from '../../../Domain/User';
-import { UserSQLRepository } from 'src/Modules/User/Infrastructure/UserSQLRepository';
 import { UserCreatedDomainEvent } from 'src/Modules/User/Domain/UserCreatedDomainEvent';
+import { Inject } from '@nestjs/common';
+import {
+  USER_REPOSITORY_TOKEN,
+  UserRepository,
+} from '../../Abstrations/UserRepository';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserCommandHandler
   implements ICommandHandler<CreateUserCommand>
 {
   constructor(
-    private readonly repository: UserSQLRepository,
+    @Inject(USER_REPOSITORY_TOKEN)
+    private readonly repository: UserRepository,
     private readonly eventBus: EventBus,
   ) {}
 
