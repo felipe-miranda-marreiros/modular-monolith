@@ -10,4 +10,9 @@ export class UserController {
   async create(@Req() request: Request) {
     await this.userService.create(request.body.username, request.body.password);
   }
+
+  @Post('/change-username')
+  async changeUsername(@Req() request: Request) {
+    await this.userService.changeEmail(request.body.username);
+  }
 }
