@@ -1,4 +1,4 @@
-import { AggregateRoot } from '../../../Common/Abstrations/AggregateRoot';
+import { AggregateRoot } from '../../../Common/Abstrations/Domain/AggregateRoot';
 import { UserChangedUsernameDomainEvent } from './UserChangedEmailDomainEvent';
 
 interface UserModel {
@@ -18,6 +18,6 @@ export class User extends AggregateRoot<UserModel> {
 
   changeUsername(email: string) {
     this.props.username = email;
-    this.apply(new UserChangedUsernameDomainEvent(this.pid));
+    this.addEvent(new UserChangedUsernameDomainEvent(this.pid));
   }
 }

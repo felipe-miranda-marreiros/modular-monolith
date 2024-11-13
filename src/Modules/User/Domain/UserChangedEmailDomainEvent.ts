@@ -1,4 +1,4 @@
-import { DomainEvent } from '../../../Common/Abstrations/DomainEvent';
+import { DomainEvent } from '../../../Common/Abstrations/Domain/DomainEvent';
 
 export class UserChangedUsernameDomainEvent extends DomainEvent {
   constructor(private readonly _userId: string) {

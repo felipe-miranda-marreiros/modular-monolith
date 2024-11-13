@@ -1,4 +1,4 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { User } from '../../../Domain/User';
 import { ChangeUsernameCommand } from './ChangeUsernameCommand';
 import { Inject } from '@nestjs/common';
@@ -14,7 +14,6 @@ export class ChangeUsernameCommandHandler
   constructor(
     @Inject(USER_REPOSITORY_TOKEN)
     private readonly repository: UserRepository,
-    private readonly eventPublisher: EventPublisher,
   ) {}
 
   async execute(command: ChangeUsernameCommand): Promise<string> {
@@ -22,10 +21,8 @@ export class ChangeUsernameCommandHandler
       password: '123',
       username: 'username',
     });
-    this.eventPublisher.mergeObjectContext(user);
     user.changeUsername(command.username);
     const userId = await this.repository.insert(user);
-    user.commit();
     return userId;
   }
 }
