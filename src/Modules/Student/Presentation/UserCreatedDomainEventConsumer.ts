@@ -4,7 +4,7 @@ import { DomainEventModel } from 'src/Common/Abstrations/Domain/DomainEvent';
 import { StudentSQLRepository } from '../Infrastructure/Database/StudentRepository';
 
 interface UserCreatedDomainEvent extends DomainEventModel {
-  _userId: string;
+  userId: string;
 }
 
 class UserCreatedDomainEventConsumer
@@ -13,10 +13,11 @@ class UserCreatedDomainEventConsumer
   constructor(private readonly studentRepository: StudentSQLRepository) {}
 
   async consume(event: UserCreatedDomainEvent): Promise<void> {
+    console.log('Consumer', event);
     const student = Student.create({
       birthdate: 'any',
       name: 'any',
-      userId: event._userId,
+      userId: event.userId,
     });
     await this.studentRepository.insert(student);
   }

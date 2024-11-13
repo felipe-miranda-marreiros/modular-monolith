@@ -3,22 +3,25 @@ import { v4 as uuidv4 } from 'uuid';
 export interface DomainEventModel {
   id: string;
   occurredOn: number;
+  aggregateId: string;
+  eventName: string;
 }
 
 export abstract class DomainEvent {
-  private _id: string;
-  private _occurredOn: number;
+  private id: string;
+  private occurredOn: number;
+  private aggregateId: string;
+  private eventName: string;
 
-  protected constructor(occurredOn?: number, id?: string) {
-    this._id = id ?? uuidv4();
-    this._occurredOn = occurredOn ?? Date.now();
-  }
-
-  get id() {
-    return this._id;
-  }
-
-  get occurredOn() {
-    return this._occurredOn;
+  protected constructor(
+    aggregateId: string,
+    eventName: string,
+    occurredOn?: number,
+    id?: string,
+  ) {
+    this.id = id ?? uuidv4();
+    this.occurredOn = occurredOn ?? Date.now();
+    this.aggregateId = aggregateId;
+    this.eventName = eventName;
   }
 }

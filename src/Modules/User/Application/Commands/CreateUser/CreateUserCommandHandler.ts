@@ -19,7 +19,7 @@ export class CreateUserCommandHandler
 
   async execute(command: CreateUserCommand): Promise<string> {
     const user = User.create(command);
-    user.addEvent(new UserCreatedDomainEvent(user.pid));
+    user.addEvent(new UserCreatedDomainEvent(user.pid, user.pid));
     const userId = await this.repository.insert(user);
     return userId;
   }

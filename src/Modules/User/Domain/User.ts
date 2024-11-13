@@ -18,6 +18,6 @@ export class User extends AggregateRoot<UserModel> {
 
   changeUsername(email: string) {
     this.props.username = email;
-    this.addEvent(new UserChangedUsernameDomainEvent(this.pid));
+    this.addEvent(new UserChangedUsernameDomainEvent(this.pid, this.pid));
   }
 }
